@@ -1,0 +1,24 @@
+<div class="multi-tag-wrapper">
+  <div class="tag-input" [class.focus]="isFocused$ | async">
+    <div class="tag" *ngFor="let tag of searchTags">
+      <span class="tag label label-info">
+        {{tag && tag.length > 10 ? ( tag | slice:0:10 )+ '...' : tag}}
+        <span class="close-tag" (click)="removeTag(tag)"></span>
+      </span>
+    </div>
+    <div class="input-wrapper">
+      <input
+        #input
+        type="text"
+        class="tag-input-text"
+        (focusin)="focusTrigger(true)"
+        (blur)="focusTrigger(false)"
+        [placeholder]="placeholder"
+        [formControl]="control"
+        (keyup.enter)="addTag(input)">
+      <ng-container *ngIf="control.value || searchTags && searchTags.length > 0">
+        <span class="close remove-tags" (click)="removeAllTags()"></span>
+      </ng-container>
+    </div>
+  </div>
+</div>
