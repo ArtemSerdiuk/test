@@ -1,0 +1,41 @@
+<div class="page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 search">
+        <app-multi-tag
+          [formControl]="search"
+          [placeholder]="'Search gifs'">
+        </app-multi-tag>
+      </div>
+    </div>
+    <div *ngIf="search.value.length > 0 && gifs && gifs.length === 0" class="alert alert-warning" role="alert">
+      No matches found, please try some different terms.
+    </div>
+    <div *ngIf="isError" class="alert alert-danger" role="alert">
+      Something went wrong, please try again.
+    </div>
+    <div class="content-wrapper" *ngIf="gifs && gifs.length > 0">
+      <div class="row py-5">
+        <div class="col-md-4" *ngFor="let gif of gifs">
+          <div class="card mb-4 box-shadow">
+            <img class="card-img-top img-fluid" style="height: 15rem" [src]="gif?.url" [alt]="gif?.title">
+            <div class="card-body">
+              <p class="card-title">{{gif?.title | slice:0:10}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination
+            (pageChange)="setCurrentPageCount($event)"
+            [page]="currentPage$.value"
+            [collectionSize]="totalCountItems"
+            [maxSize]="5"
+            [pageSize]="pageSize">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
