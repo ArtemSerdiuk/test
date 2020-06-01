@@ -1,7 +1,7 @@
-import { Gif } from '../../share/interfaces/gif.interface';
-import { PaginationApi } from '../../share/interfaces/pagination-api.interface';
-import { Pagination } from '../../share/interfaces/pagination.interface';
-import { GifApi } from '../../share/interfaces/gif-api.interface';
+import { Gif } from '../../shared/interfaces/gif.interface';
+import { PaginationApi } from '../../shared/interfaces/pagination-api.interface';
+import { Pagination } from '../../shared/interfaces/pagination.interface';
+import { GifApi } from '../../shared/interfaces/gif-api.interface';
 
 export class DataTransform {
 

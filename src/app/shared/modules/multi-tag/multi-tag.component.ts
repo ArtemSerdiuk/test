@@ -61,6 +61,7 @@ export class MultiTagComponent implements  ControlValueAccessor {
     if (index >= 0) {
       this.searchTags.splice(index, 1);
       this.onChange(this.searchTags);
+      this.control.patchValue(this.searchTags);
     }
   }
 

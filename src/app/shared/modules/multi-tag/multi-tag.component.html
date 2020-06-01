@@ -16,9 +16,7 @@
         [placeholder]="placeholder"
         [formControl]="control"
         (keyup.enter)="addTag(input)">
-      <ng-container *ngIf="control.value || searchTags && searchTags.length > 0">
         <span class="close remove-tags" (click)="removeAllTags()"></span>
-      </ng-container>
     </div>
   </div>
 </div>

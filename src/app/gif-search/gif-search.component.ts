@@ -5,7 +5,7 @@ import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 import { GifService } from '../core/services/gif.service';
-import { Gif } from '../share/interfaces/gif.interface';
+import { Gif } from '../shared/interfaces/gif.interface';
 import { DataTransform } from '../core/helpers/data-transform';
 
 @Component({

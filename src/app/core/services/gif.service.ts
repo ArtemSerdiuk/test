@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ApiConfig } from '../general/api-config';
-import { PaginationData } from '../../share/interfaces/pagination-data.interface';
+import { PaginationData } from '../../shared/interfaces/pagination-data.interface';
 import { DataTransform } from '../helpers/data-transform';
-import { GifApi } from '../../share/interfaces/gif-api.interface';
-import { Item } from '../../share/interfaces/item.interface';
+import { GifApi } from '../../shared/interfaces/gif-api.interface';
+import { Item } from '../../shared/interfaces/item.interface';
 
 @Injectable({
   providedIn: 'root',
