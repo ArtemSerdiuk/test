@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, protractor } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -8,16 +8,56 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should navigate to page', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('test-app app is running!');
+    const searchInputElement = page.getSearchInputElement();
+    expect(searchInputElement.getAttribute('placeholder')).toEqual('Search gifs');
   });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+  it('should insert the text to the input and search', () => {
+    const searchInputElement = page.getSearchInputElement();
+    searchInputElement.sendKeys('test');
+    browser.wait(searchInputElement.sendKeys(protractor.Key.ENTER));
+
+    // check tag
+    expect(page.getElementByClassName('tag').getText()).toContain('test');
+
+    // check items
+    page.getElementsByClassName('card-img-top').count().then(length => {
+      expect(length).toEqual(9);
+    });
+
+    // check pagination
+    page.getElementByTag('ngb-pagination').isPresent().then(isPresent => {
+      expect(isPresent).toBeTruthy();
+    });
+
+    browser.sleep(500);
   });
+
+  it('should change pagination', () => {
+    const prevValue = page.getElementByClassName('card-img-top').getAttribute('src');
+    browser.wait(
+      page.getElementsByClassName('page-link').get(2).click()
+    );
+    browser.sleep(500);
+    const changedValue = page.getElementByClassName('card-img-top').getAttribute('src');
+    expect(changedValue).not.toEqual(prevValue);
+  });
+
+  it('should clear search', () => {
+    const searchInputElement = page.getSearchInputElement();
+    browser.wait(page.getElementByClassName('remove-tags').click());
+    browser.sleep(500);
+    expect(searchInputElement.getAttribute('value')).toEqual('');
+  });
+
+  it('should insert the text to the input and search empty result', () => {
+    const searchInputElement = page.getSearchInputElement();
+    searchInputElement.sendKeys('########################################################################################');
+    browser.wait(searchInputElement.sendKeys(protractor.Key.ENTER));
+    browser.sleep(500);
+    expect(page.getElementByClassName('alert').getText()).toEqual('No matches found, please try some different terms.');
+  });
+
 });

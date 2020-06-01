@@ -1,11 +1,23 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, ElementArrayFinder, ElementFinder } from 'protractor';
 
 export class AppPage {
   navigateTo(): Promise<unknown> {
-    return browser.get(browser.baseUrl) as Promise<unknown>;
+    return browser.get(browser.baseUrl + '/gif-search/') as Promise<unknown>;
   }
 
-  getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+  getSearchInputElement(): ElementFinder {
+    return element(by.className('tag-input-text'));
+  }
+
+  getElementByClassName(className: string): ElementFinder {
+    return element(by.className(className));
+  }
+
+  getElementByTag(tagName: string): ElementFinder {
+    return element(by.tagName(tagName));
+  }
+
+  getElementsByClassName(className: string): ElementArrayFinder {
+    return element.all(by.className(className));
   }
 }
